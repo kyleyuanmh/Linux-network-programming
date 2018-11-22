@@ -9,8 +9,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-int CLIENT_PORT=8899;
-char* CLIENT_IP="192.168.1.105";
+int CLIENT_PORT=8899;//server's PORT
+char* CLIENT_IP="192.168.31.9";//server's IP
 
 int main()
 {
@@ -45,7 +45,11 @@ int main()
    socklen_t len = sizeof(addr);
    while (1)
        {
-           scanf("%s",buff);
+            memset(buff,0,sizeof(buff));
+            fgets(buff,511,stdin);
+           //scanf("%s",buff);
+            if(buff[0]=='0')
+                break;
            int n;
            //addr是sockaddr_in类型需要进行强制类型转换
            n = sendto(socket_fd, buff, strlen(buff), 0, (struct sockaddr *)&addr, sizeof(addr));
